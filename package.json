@@ -1,0 +1,19 @@
+{
+  "name": "node-todo-api",
+  "version": "1.0.0",
+  "description": "Todo api from udemy node class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Travis Haley",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^2.2.24"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.15.0",
+    "eslint-plugin-react": "^6.9.0"
+  }
+}
