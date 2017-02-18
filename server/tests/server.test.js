@@ -15,8 +15,8 @@ const todos = [{
 
 beforeEach((done) => {
     Todo.remove({}).then(() => {
-       return Todo.insertMany(todos);
-    }).then (() => done());
+        return Todo.insertMany(todos);
+    }).then(() => done());
 });
 
 describe('POST /todos', () => {
@@ -35,7 +35,7 @@ describe('POST /todos', () => {
                     return done(err);
                 }
 
-                Todo.find({text}).then((todos) => {
+                Todo.find({ text }).then((todos) => {
                     expect(todos.length).toBe(1);
                     expect(todos[0].text).toBe(text);
                     done();
@@ -48,7 +48,7 @@ describe('POST /todos', () => {
 
         request(app)
             .post('/todos')
-            .send({text})
+            .send({ text })
             .expect(400)
             .end((err, res) => {
                 if (err) {
@@ -101,6 +101,46 @@ describe('GET /todos/:id', function () {
     it('should return 404 for non object ids', function (done) {
         request(app)
             .get('/todos/12345')
+            .expect(404)
+            .end(done);
+    });
+});
+
+
+describe('DELETE /todos/:id', function () {
+    it('should remove a todo', function (done) {
+        var hexId = todos[1]._id.toHexString();
+
+        request(app)
+            .delete(`/todos/${hexId}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todo._id).toBe(hexId);
+            })
+            .end((err, res) => {
+                if (err) {
+                    return done(err);
+                }
+                Todo.findById(hexId).then((todo) => {
+                    expect(todo).toNotExist();
+                    done();
+                }).catch((e) => done(e));
+
+            });
+    });
+
+    it('should return 404 if todo not found', function (done) {
+        var hexId = new ObjectId().toHexString();
+
+        request(app)
+            .delete(`/todos/${hexId}`)
+            .expect(404)
+            .end(done);
+    });
+
+    it('should return 404 if ObjectId is invalid', function (done) {
+        request(app)
+            .delete('/todos/12345')
             .expect(404)
             .end(done);
     });
