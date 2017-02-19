@@ -12,7 +12,7 @@ var UserSchema = new mongoose.Schema({
         unique: true,
         validate: {
             validator: (value) => {
-               return validator.isEmail(value);
+                return validator.isEmail(value);
             },
             message: '{VALUE} is not a valid email'
         }
@@ -74,6 +74,8 @@ UserSchema.statics.findByToken = function (token) {
         'tokens.access': 'auth'
     });
 };
+
+
 
 var User = mongoose.model('User', UserSchema);
 

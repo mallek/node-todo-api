@@ -4,7 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {ObjectId} = require('mongodb');
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} = require('./models/todo');
