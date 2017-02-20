@@ -118,7 +118,7 @@ app.post('/users', function (req, res) {
     user.save().then(() => {
         return user.generateAuthToken();
     }).then((token) => {
-        console.log(token);
+        //console.log(token);
         res.header('x-auth', token).send(user);
     }).catch((e) => {
         console.log('bad request', e);
