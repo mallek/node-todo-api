@@ -121,7 +121,7 @@ app.post('/users', function (req, res) {
         //console.log(token);
         res.header('x-auth', token).send(user);
     }).catch((e) => {
-        console.log('bad request', e);
+        //console.log('bad request', e);
         res.status(400).send(e);
     });
 });
