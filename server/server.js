@@ -129,8 +129,20 @@ app.post('/users', function (req, res) {
 
 
 //GET /users/me
-app.get('/users/me', authenticate, function(req, res) {
+app.get('/users/me', authenticate, function (req, res) {
     res.send(req.user);
+});
+
+//POST /users/login {email, password}
+app.post('/users/login', function (req, res) {
+    var body = _.pick(req.body, ['email', 'password']);
+
+    User.findByCredentials(body.email, body.password).then((user) => {
+        res.send(user);
+    }).catch((e) => {
+        res.status(400).send();
+    });
+
 });
 
 app.listen(port, () => {
