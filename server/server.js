@@ -159,6 +159,7 @@ app.post('/users/login', function (req, res) {
 
 });
 
+// DELETE /users/me/token
 app.delete('/users/me/token', authenticate, function(req, res) {
     req.user.removeToken(req.token).then(() => {
         res.status(200).send();
@@ -166,6 +167,8 @@ app.delete('/users/me/token', authenticate, function(req, res) {
         res.status(400).send();
     });
 });
+
+//todo add a delete user route
 
 app.listen(port, () => {
     console.log(`started on port ${port}`);
